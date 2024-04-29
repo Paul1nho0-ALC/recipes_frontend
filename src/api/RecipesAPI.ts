@@ -13,11 +13,13 @@ export type createRecipesProps = {
   ingredients: string
 }
 
-export async function GetRecipes(filter: string | null) {
+export async function GetRecipes(filter: string | undefined) {
   try {
     const response = await api.get<RecipesProps[]>('/recipes')
     const recipes = filter
-      ? response.data.filter((recipe) => recipe.title.includes(filter))
+      ? response.data.filter((recipe) =>
+          recipe.title.toLowerCase().includes(filter),
+        )
       : response.data
 
     return recipes

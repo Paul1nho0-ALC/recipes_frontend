@@ -27,7 +27,7 @@ export function Recipe(props: RecipeProps) {
   return (
     <div
       onClick={handleClick}
-      className="w-[280px] sm:w-[460px] rounded-lg bg-slate-100 text-start 
+      className="w-full md:w-[460px] rounded-lg bg-slate-100 text-start 
     p-6 break-words shadow-md shadow-slate-400 divide-y-2 divide-dashed divide-slate-300 hover:scale-[1.02]
     ease-linear duration-150 hover:cursor-pointer"
     >

@@ -34,7 +34,7 @@ export function SearchForm(props: SearchFormProps) {
   return (
     <form
       onSubmit={handleSubmit(handleSearchRecipes)}
-      className="px-2 flex-col md:px-10 md:flex-row flex gap-8"
+      className="px-4 flex-col md:px-10 md:flex-row flex gap-8"
     >
       <input
         disabled={isLoading}
