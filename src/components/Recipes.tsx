@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { SearchForm } from './ui/SearchForm'
 import { useSearchParams } from 'react-router-dom'
 import { useEffect } from 'react'
+import { Loader } from './ui/Loader/Loader'
 
 export function Recipes() {
   // Filter
@@ -28,23 +29,32 @@ export function Recipes() {
   }
 
   return (
-    <div className="mt-8 w-full">
+    <div className="mt-8 w-screen">
       <SearchForm isLoading={isLoading} />
 
       {isLoading ? (
-        <p className="font-normal text-3xl text-slate-700 text-center mt-12">
-          Carregando...
-        </p>
+        <div className="flex flex-col items-center gap-8">
+          <p className="font-bold text-3xl text-slate-700 text-center mt-12">
+            Carregando
+          </p>
+          <Loader />
+        </div>
       ) : hasRecipes ? (
         <div className="grid p-4 gap-8 mt-11 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 justify-items-center w-full">
-          {data?.map((recipe) => (
-            <Recipe
-              id={recipe.id}
-              key={recipe.id}
-              title={recipe.title}
-              description={recipe.description}
-            />
-          ))}
+          {typeof data !== 'string' ? (
+            data?.map((recipe) => (
+              <Recipe
+                id={recipe.id}
+                key={recipe.id}
+                title={recipe.title}
+                description={recipe.description}
+              />
+            ))
+          ) : (
+            <p className="font-bold text-3xl text-slate-700 text-center absolute mt-12">
+              {data}
+            </p>
+          )}
         </div>
       ) : (
         <p className="font-extrabold text-slate-800 text-4xl text-center uppercase bottom-24 mt-24">

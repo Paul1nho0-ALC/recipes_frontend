@@ -5,6 +5,7 @@ export type RecipesProps = {
   title: string
   description: string
   ingredients: string
+  error?: string
 }
 
 export type createRecipesProps = {
@@ -13,7 +14,9 @@ export type createRecipesProps = {
   ingredients: string
 }
 
-export async function GetRecipes(filter: string | undefined) {
+export async function GetRecipes(
+  filter: string | undefined,
+): Promise<RecipesProps[] | string> {
   try {
     const response = await api.get<RecipesProps[]>('/recipes')
     const recipes = filter
@@ -25,6 +28,7 @@ export async function GetRecipes(filter: string | undefined) {
     return recipes
   } catch (e) {
     console.warn(e)
+    return 'Erro ao se conectar com o Servidor :('
   }
 }
 
@@ -57,8 +61,8 @@ export async function CreateRecipe(data: createRecipesProps) {
       ...data,
     })
     return response
-  } catch (e) {
-    console.warn(e)
+  } catch (error) {
+    console.warn(error)
   }
 }
 
